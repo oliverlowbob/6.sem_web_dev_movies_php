@@ -1,10 +1,3 @@
-var startSearchMovieUrl = "https://api.themoviedb.org/3/search/movie";
-var startSearchPeopleUrl = "https://api.themoviedb.org/3/search/person";
-var startGetMovieUrl = "https://api.themoviedb.org/3/movie";
-var startGetPersonUrl = "https://api.themoviedb.org/3/person";
-var basePosterPathUrl = "https://image.tmdb.org/t/p/original/";
-var apiKey = "?api_key=4a6d5d0919b25c93766f4240a8ac75f0";
-
 const languageNames = new Intl.DisplayNames(['en'], {type: 'language'});
 
 async function searchBtnClick(){
@@ -12,24 +5,16 @@ async function searchBtnClick(){
     var searchQuery = $("#searchQuery").val();
 
     if(selectedSearch =="secMovieId"){
-        var newUrl = startSearchMovieUrl + apiKey + "&query=" + searchQuery;
+        var newUrl = "http://localhost/movies/?name=" + searchQuery;
         var response = await $.get(newUrl);
         var results = response.results;
 
         $("#movieTable > tbody").empty();
 
         for(var i = 0; i<results.length; i++){
-            if(results[i]["release_date"] != undefined){
-                var releaseYear = results[i]["release_date"].split("-")[0]
-            }
-            
-            var language = languageNames.of(results[i]["original_language"]);
-
             $("#movieTable > tbody").append(
                 "<tr>"+ 
                 "<td> <a href='#' onClick='PressMovieName("+ results[i]["id"] +")'>"+results[i]["title"]+"</a> "+ "</td>" +
-                "<td>"+releaseYear+"</td>" +
-                "<td>"+language+"</td>" +
                 "</tr>"
             );
         }
