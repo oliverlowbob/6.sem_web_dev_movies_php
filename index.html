@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+    </style>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/script.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <title>Movie Database</title>
+</head>
+<body>
+    <h1>Movie Database</h1>
+    <main>
+        <section id="searchSection">
+            <input type="text" id="searchQuery" placeholder="Search here">
+            <select name="movies" id="selectMovies">
+                <option value="secMovieId">Movie title</option>
+                <option value="secMovieYearId">Move title, release year</option>
+                <option value="secPersonId">Person involved</option>
+            </select>
+            <button onclick="searchBtnClick()" id="searchBtn">Search</button>
+        </section>
+        <section id="resultMovieSection">
+            <table id="movieTable">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Release Year</th>
+                        <th>Language</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+        <section id="resultPersonSection">
+            <table id="personTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Main Activity</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+        <section>
+            <div id="personInfoSection" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="ShowFrontPagePerson()">&times;</span>
+                    <ul>
+                        <p><strong>Name</strong></p>
+                        <li id="personName"></li>
+                        <p><strong>Main Activity</strong></p>
+                        <li id="personMainActivity"></li>
+                        <p><strong>Birthday</strong></p>
+                        <li id="personBirthday"></li>
+                        <p><strong>Birthplace</strong></p>
+                        <li id="personBirthplace"></li>
+                        <p><strong>Day of Decease</strong></p>
+                        <li id="personDeathDay">Still alive</li>    
+                        <p><strong>Biography</strong></p>
+                        <li id="personBiography"></li>                
+                        <p><strong>Website</strong></p>
+                        <li id="personWebsite">No website</li>
+                        <li id="personMovies"> 
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Release Year</th>
+                                        <th>Role</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div id="movieInfoSection" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="ShowFrontPageMovie()">&times;</span>
+                    <ul>
+                        <p><strong>Title</strong></p>
+                        <li id="movieTitle"></li>
+                        <p><strong>Release Date</strong></p>
+                        <li id="movieReleaseDate"></li>
+                        <p><strong>Language</strong></p>
+                        <li id="movieLanguage"></li>
+                        <p><strong>Runtime</strong></p>
+                        <li id="movieRuntime"></li>
+                        <p><strong>Overview</strong></p>
+                        <li id="movieOverview"></li>    
+                        <p><strong>Website</strong></p>
+                        <li id="movieWebsite">No website</li>
+                        <p><strong>Genres</strong></p>
+                        <li id="movieGenres"></li>
+                        <p><strong>Directors</strong></p>
+                        <li id="movieDirectors"></li>
+                        <p><strong>Script Writers</strong></p>
+                        <li id="movieWriters"></li>
+                        <p><strong>Executive Producers</strong></p>
+                        <li id="movieExecProd"></li>
+                        <p><strong>Producers</strong></p>
+                        <li id="movieProducers"></li>
+                        <p><strong>Music Composers</strong></p>
+                        <li id="movieMusicComposers"></li>
+                        <p><h2>Actors</h2></p>
+                        <li id="movieActors"> 
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Character</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
