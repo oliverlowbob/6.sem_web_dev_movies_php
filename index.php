@@ -18,16 +18,19 @@
     header('Accept-version: v1');
 
     $requestMethod = $_SERVER['REQUEST_METHOD'];
-
+    
     switch($requestMethod){
         case "GET":
-            if (isset($_GET['name'])) {                   // Search movie by name
+            // Get movie by id (<current_dir>/movies/{id})
+            if(count($urlPieces) == 2){                      
+                echo json_encode($movies->getMovie($urlPieces[1]));
+            }
+            // Search movie by name
+            elseif (isset($_GET['name'])) {                   
                 echo json_encode($movies->searchMovies($_GET['name']));
-            } else {                                            // Get all movies
+            } else {                    
+                // Get all movies                        
                 echo json_encode($movies->getAllMovies());
             }
             break;
-            
-
         }
-?>

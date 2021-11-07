@@ -10,6 +10,39 @@
             return $statusInfo;
         }
 
+        public function getMovie($movieId){
+            $con = (new DatabaseConnector())->getConnection();
+
+            if ($con) {
+                $results = array();
+
+                $cQuery = "SELECT * FROM films.movies WHERE id = " . $movieId . ";";
+
+                $stmt = $con->query($cQuery);      
+
+                $results['_total'] = $stmt->rowCount();
+                
+                $movies = array();
+                while($row = $stmt->fetch()) {
+                    $result['id'] = $row['id'];
+                    $result['title'] = $row['title'];
+                    $result['overview'] = $row['overview'];
+                    $result['released'] = $row['released'];
+                    $result['runtime'] = $row['runtime'];
+                    $movies[] = $result;
+                }
+                
+                $results['results'] = $movies;
+
+                $stmt = null;
+                
+                return($results);
+
+            } else {
+                return $this->statusCode(ERROR);
+            } 
+        }
+
         public function getAllMovies(){
             $con = (new DatabaseConnector())->getConnection();
 
@@ -77,4 +110,3 @@
         }
 
     }
-?>
