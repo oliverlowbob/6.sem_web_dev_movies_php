@@ -33,4 +33,11 @@
                 echo json_encode($movies->getAllMovies());
             }
             break;
+        case "POST":
+            if(isset($_POST['id']) && isset($_POST['title']) && isset($_POST['runtime'])){
+                $movies->updateMovie($_POST['id'], $_POST['title'], $_POST['overview'], $_POST['released'], $_POST['runtime']);
+            }
+            else{
+                echo "Missing values";
+            }
         }

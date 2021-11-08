@@ -49,6 +49,12 @@ body {
     height: 2rem;
 }
 
+#saveBtn{
+    background-color: #05386B;
+    color: var(--main-text-color);
+    display: none;
+}
+
 main{
     margin: 1rem;
     text-align: center;

@@ -10,6 +10,25 @@
             return $statusInfo;
         }
 
+        public function updateMovie($movieId, $title, $overview, $released, $runtime){
+            $con = (new DatabaseConnector())->getConnection();
+
+            if ($con) {
+                $results = array();
+
+                $cQuery = "UPDATE films.movies 
+                    SET title = " . $title . 
+                    ", overview = " . $overview . 
+                    ", relased = " . $released . 
+                    ", runtime = " . $runtime . 
+                    " WHERE id = " . $movieId . ";";
+
+                $stmt = $con->query($cQuery);      
+
+                print_r($stmt);
+            }
+        }
+
         public function getMovie($movieId){
             $con = (new DatabaseConnector())->getConnection();
 
