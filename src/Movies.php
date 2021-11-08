@@ -18,7 +18,9 @@
                 $stmt= $con->prepare($sql);
                 $stmt->execute([$title, $overview, $released, $runtime, $id]);
                 $stmt = null;
-            }
+            }else {
+                return $this->statusCode(ERROR);
+            } 
         }
 
         public function getMovie($movieId){
