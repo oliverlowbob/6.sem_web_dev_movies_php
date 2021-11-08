@@ -10,22 +10,14 @@
             return $statusInfo;
         }
 
-        public function updateMovie($movieId, $title, $overview, $released, $runtime){
+        public function updateMovie($id, $title, $overview, $released, $runtime){
             $con = (new DatabaseConnector())->getConnection();
 
             if ($con) {
-                $results = array();
-
-                $cQuery = "UPDATE films.movies 
-                    SET title = " . $title . 
-                    ", overview = " . $overview . 
-                    ", relased = " . $released . 
-                    ", runtime = " . $runtime . 
-                    " WHERE id = " . $movieId . ";";
-
-                $stmt = $con->query($cQuery);      
-
-                print_r($stmt);
+                $sql = "UPDATE films.movies SET title=?, overview=?, released=?, runtime=? WHERE id=?";
+                $stmt= $con->prepare($sql);
+                $stmt->execute([$title, $overview, $released, $runtime, $id]);
+                $stmt = null;
             }
         }
 

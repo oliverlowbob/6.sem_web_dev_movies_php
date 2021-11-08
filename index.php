@@ -18,7 +18,7 @@
     header('Accept-version: v1');
 
     $requestMethod = $_SERVER['REQUEST_METHOD'];
-    
+
     switch($requestMethod){
         case "GET":
             // Get movie by id (<current_dir>/movies/{id})
@@ -28,16 +28,14 @@
             // Search movie by name
             elseif (isset($_GET['name'])) {                   
                 echo json_encode($movies->searchMovies($_GET['name']));
-            } else {                    
+            } 
+            else {                    
                 // Get all movies                        
                 echo json_encode($movies->getAllMovies());
             }
             break;
-        case "POST":
-            if(isset($_POST['id']) && isset($_POST['title']) && isset($_POST['runtime'])){
-                $movies->updateMovie($_POST['id'], $_POST['title'], $_POST['overview'], $_POST['released'], $_POST['runtime']);
-            }
-            else{
-                echo "Missing values";
-            }
+        case "PUT":
+            $movieData = (array) json_decode(file_get_contents('php://input'), TRUE);
+            $movies->updateMovie($movieData['movieId'], $movieData['title'], $movieData['overview'], $movieData['released'], $movieData['runtime']);
+            break;
         }

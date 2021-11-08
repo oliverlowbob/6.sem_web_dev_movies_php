@@ -18,18 +18,37 @@ window.onload = async function () {
     $("#movieTable > tbody").append(bodyStr);
 };
 
-async function SaveMovieInfo(){
-    const newUrl = "http://localhost/movies";
+async function SaveMovieInfo() {
+    const url = "http://localhost/movies/";
 
     const movieId = $("#movieId").text();
-
-    console.log(movieId);
+    const title = $("#movieTitle").val();
+    const overview = $("#movieOverview").val();
+    const released = $("#movieReleaseDate").val();
+    const runtime = $("#movieRuntime").val();
 
     const requestData = {
-        
+        "movieId": movieId,
+        "title": title,
+        "overview": overview,
+        "released": released,
+        "runtime": runtime
     };
 
-    const response = await $.post(newUrl, requestData);
+    $.ajax({
+        type: 'PUT',
+        url: url,
+        data: JSON.stringify(requestData),
+        contentType: "application/json",
+        success: function (response, status, xhr) {
+            console.log(response);
+            alert("Movie info saved")
+        },
+        error: function (xhr, status, error) {
+            console.log(error);
+            alert("Something went wrong")
+        }
+    });
 }
 
 async function searchBtnClick() {
@@ -65,7 +84,7 @@ async function UpdateMovie(movieId) {
     const newUrl = "http://localhost/movies/" + movieId;
     const unparsedResponse = await $.get(newUrl);
     const response = unparsedResponse.results[0];
-    
+
     $("#movieId").text(movieId);
     $("#movieTitle").val(response.title);
     $("#movieTitle").prop("readonly", false);
