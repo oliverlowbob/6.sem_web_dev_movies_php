@@ -35,8 +35,8 @@
             <div id="movieInfoSection" class="modal">
                 <div class="modal-content">
                     <span class="close" onclick="ShowFrontPageMovie()">&times;</span>
+                    <p hidden id="movieId"></p>
                     <ul>
-                        <li><p id="movieId"></p></li>
                         <p><strong>Title</strong></p>
                         <li><input type="text" id="movieTitle"></li>
                         <p><strong>Release Date</strong></p>
@@ -50,7 +50,7 @@
                         <p><strong>Cast</strong></p>
                         <li><input type="text" id="cast"></li>
                     </ul>
-                    <button id="saveBtn" oncanplay="SaveMovieInfo()">Save</button>
+                    <button id="saveBtn" onclick="SaveMovieInfo()">Save</button>
                 </div>
             </div>
         </section>

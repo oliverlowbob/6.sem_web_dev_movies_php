@@ -18,8 +18,12 @@ window.onload = async function () {
     $("#movieTable > tbody").append(bodyStr);
 };
 
-async function SaveMovieInfo(movieId){
+async function SaveMovieInfo(){
     const newUrl = "http://localhost/movies";
+
+    const movieId = $("#movieId").text();
+
+    console.log(movieId);
 
     const requestData = {
         
@@ -61,7 +65,8 @@ async function UpdateMovie(movieId) {
     const newUrl = "http://localhost/movies/" + movieId;
     const unparsedResponse = await $.get(newUrl);
     const response = unparsedResponse.results[0];
-
+    
+    $("#movieId").text(movieId);
     $("#movieTitle").val(response.title);
     $("#movieTitle").prop("readonly", false);
     $("#movieReleaseDate").val(response.released);
@@ -85,6 +90,7 @@ async function PressMovieName(movieId) {
 
     $("#saveBtn").css("display", "hidden");
 
+    $("#movieId").text("");
     $("#movieTitle").val(response.title);
     $("#movieTitle").prop("readonly", true);
     $("#movieReleaseDate").val(response.released);
@@ -94,6 +100,7 @@ async function PressMovieName(movieId) {
     $("#movieOverview").val(response.overview);
     $("#movieOverview").prop("readonly", true);
 
+    $("#saveBtn").css("display", "none");
     $("#resultMovieSection").css("display", "none");
     $("#searchSection").css("display", "none");
     $("#movieInfoSection").css("display", "block");
