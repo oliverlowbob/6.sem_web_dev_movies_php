@@ -38,7 +38,7 @@ async function SaveMovieInfo() {
     $.ajax({
         type: 'PUT',
         url: url,
-        data: JSON.stringify(requestData),
+        data: requestData,
         contentType: "application/json",
         success: function (response, status, xhr) {
             console.log(response);
