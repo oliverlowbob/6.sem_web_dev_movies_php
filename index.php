@@ -36,6 +36,6 @@
             break;
         case "PUT":
             $movieData = (array) json_decode(file_get_contents('php://input'), TRUE);
-            $movies->updateMovie($movieData['movieId'], $movieData['title'], $movieData['overview'], $movieData['released'], $movieData['runtime']);
+            echo json_encode($movies->updateMovie($movieData['movieId'], $movieData['title'], $movieData['overview'], $movieData['released'], $movieData['runtime']));
             break;
         }

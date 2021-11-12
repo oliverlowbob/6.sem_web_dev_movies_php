@@ -19,7 +19,7 @@ window.onload = async function () {
 };
 
 async function SaveMovieInfo() {
-    const url = "http://localhost/movies/";
+    const url = "http://localhost/movies";
 
     const movieId = $("#movieId").text();
     const title = $("#movieTitle").val();
@@ -28,23 +28,27 @@ async function SaveMovieInfo() {
     const runtime = $("#movieRuntime").val();
 
     const requestData = {
-        "movieId": movieId,
-        "title": title,
-        "overview": overview,
-        "released": released,
-        "runtime": runtime
+        movieId: movieId,
+        title: title,
+        overview: overview,
+        released: released,
+        runtime: runtime
     };
 
     $.ajax({
         type: 'PUT',
         url: url,
-        data: requestData,
+        data: JSON.stringify(requestData),
         contentType: "application/json",
         success: function (response, status, xhr) {
             console.log(response);
+            console.log(status);
+            console.log(xhr);
             alert("Movie info saved")
         },
         error: function (xhr, status, error) {
+            console.log(xhr);
+            console.log(status);
             console.log(error);
             alert("Something went wrong")
         }
@@ -90,7 +94,7 @@ async function UpdateMovie(movieId) {
     $("#movieTitle").prop("readonly", false);
     $("#movieReleaseDate").val(response.released);
     $("#movieReleaseDate").prop("readonly", false);
-    $("#movieRuntime").val(response.runtime + " minutes");
+    $("#movieRuntime").val(response.runtime);
     $("#movieRuntime").prop("readonly", false);
     $("#movieOverview").val(response.overview);
     $("#movieOverview").prop("readonly", false);
@@ -114,7 +118,7 @@ async function PressMovieName(movieId) {
     $("#movieTitle").prop("readonly", true);
     $("#movieReleaseDate").val(response.released);
     $("#movieReleaseDate").prop("readonly", true);
-    $("#movieRuntime").val(response.runtime + " minutes");
+    $("#movieRuntime").val(response.runtime);
     $("#movieRuntime").prop("readonly", true);
     $("#movieOverview").val(response.overview);
     $("#movieOverview").prop("readonly", true);
