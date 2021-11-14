@@ -149,6 +149,14 @@ border: 1px solid #888;
 width: 80%; /* Could be more or less, depending on screen size */
 }
 
+img.logoImg {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    padding: 0.1rem;
+    cursor: pointer;
+}
+
 @media screen and (max-width: 500px) {
     #searchSection,#searchBtn,#selectMovies,#searchQuery {
         display: block;
@@ -157,6 +165,3 @@ width: 80%; /* Could be more or less, depending on screen size */
         text-align: center;
     }
 } 
-  
-
-

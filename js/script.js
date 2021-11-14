@@ -3,20 +3,7 @@ window.onload = async function () {
     const response = await $.get(newUrl);
     const results = response.results;
 
-    $("#movieTable > tbody").empty();
-
-    var bodyStr = "";
-
-    for (var i = 0; i < results.length; i++) {
-        bodyStr +=
-            "<tr>" +
-            "<td> <a href='#' onClick='PressMovieName(" + results[i]["id"] + ")'>" + results[i]["title"] + "</a> " + "</td>" +
-            "<td> <a href='#' onClick='UpdateMovie(" + results[i]["id"] + ")'>" + "Update" + "</a> " + "</td>" +
-            "<td> <a href='#' onClick='DeleteMovie(" + results[i]["id"] + ")'>" + "Delete" + "</a> " + "</td>" +
-            "</tr>";
-    }
-
-    $("#movieTable > tbody").append(bodyStr);
+    await showMoviesTable(results);
 };
 
 async function searchBtnClick() {
@@ -26,6 +13,10 @@ async function searchBtnClick() {
     const response = await $.get(newUrl);
     const results = response.results;
 
+    await showMoviesTable(results);
+};
+
+async function showMoviesTable(results){
     $("#movieTable > tbody").empty();
 
     var bodyStr = "";
@@ -33,18 +24,19 @@ async function searchBtnClick() {
     for (var i = 0; i < results.length; i++) {
         bodyStr +=
             "<tr>" +
-            "<td> <a href='#' onClick='PressMovieName(" + results[i]["id"] + ")'>" + results[i]["title"] + "</a> " + "</td>" +
-            "<td> <a href='#' onClick='UpdateMovie(" + results[i]["id"] + ")'>" + "Update" + "</a> " + "</td>" +
-            "<td> <a href='#' onClick='DeleteMovie(" + results[i]["id"] + ")'>" + "Delete" + "</a> " + "</td>" +
+            "<td>" +
+                "<a href='#' onClick='PressMovieName(" + results[i]["id"] + ")'>" + results[i]["title"] + "</a> " + 
+                "<a href='#' onClick='UpdateMovie(" + results[i]["id"] + ")'>" + "<img src='images/update.png' class='logoImg'>" + "</a>" +
+                "<a href='#' onClick='DeleteMovie(" + results[i]["id"] + ")'>" + "<img src='images/delete.png' class='logoImg'>" + "</a>" +
+            "</td>" +
             "</tr>";
     }
-
 
     $("#movieTable > tbody").append(bodyStr);
 
     $("#resultMovieSection").css("display", "block");
     $("#resultPersonSection").css("display", "none");
-}
+};
 
 async function DeleteMovie(movieId){
     const newUrl = "http://localhost/movies/" + movieId;
