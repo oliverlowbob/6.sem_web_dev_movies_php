@@ -12,11 +12,62 @@ window.onload = async function () {
             "<tr>" +
             "<td> <a href='#' onClick='PressMovieName(" + results[i]["id"] + ")'>" + results[i]["title"] + "</a> " + "</td>" +
             "<td> <a href='#' onClick='UpdateMovie(" + results[i]["id"] + ")'>" + "Update" + "</a> " + "</td>" +
+            "<td> <a href='#' onClick='DeleteMovie(" + results[i]["id"] + ")'>" + "Delete" + "</a> " + "</td>" +
             "</tr>";
     }
 
     $("#movieTable > tbody").append(bodyStr);
 };
+
+async function searchBtnClick() {
+    const searchQuery = $("#searchQuery").val();
+
+    const newUrl = "http://localhost/movies/?name=" + searchQuery;
+    const response = await $.get(newUrl);
+    const results = response.results;
+
+    $("#movieTable > tbody").empty();
+
+    var bodyStr = "";
+
+    for (var i = 0; i < results.length; i++) {
+        bodyStr +=
+            "<tr>" +
+            "<td> <a href='#' onClick='PressMovieName(" + results[i]["id"] + ")'>" + results[i]["title"] + "</a> " + "</td>" +
+            "<td> <a href='#' onClick='UpdateMovie(" + results[i]["id"] + ")'>" + "Update" + "</a> " + "</td>" +
+            "<td> <a href='#' onClick='DeleteMovie(" + results[i]["id"] + ")'>" + "Delete" + "</a> " + "</td>" +
+            "</tr>";
+    }
+
+
+    $("#movieTable > tbody").append(bodyStr);
+
+    $("#resultMovieSection").css("display", "block");
+    $("#resultPersonSection").css("display", "none");
+}
+
+async function DeleteMovie(movieId){
+    const newUrl = "http://localhost/movies/" + movieId;
+
+    if (confirm('Are you sure you want to delete this movie?')) {
+        await $.ajax({
+            url: newUrl,
+            type: 'DELETE',
+            success: function(result) {
+                console.log(result);
+                location.reload();
+            },
+            error: function(xhr, status, error){
+                console.log(xhr);
+                console.log(status);
+                console.log(error);
+                alert("Something went wrong")
+            }
+        })        
+      } else {
+
+      }
+;}
 
 async function SaveMovieInfo() {
     const url = "http://localhost/movies";
@@ -44,7 +95,8 @@ async function SaveMovieInfo() {
             console.log(response);
             console.log(status);
             console.log(xhr);
-            alert("Movie info saved")
+            alert("Movie info saved");
+            location.reload();
         },
         error: function (xhr, status, error) {
             console.log(xhr);
@@ -53,35 +105,6 @@ async function SaveMovieInfo() {
             alert("Something went wrong")
         }
     });
-}
-
-async function searchBtnClick() {
-    const searchQuery = $("#searchQuery").val();
-
-    const newUrl = "http://localhost/movies/?name=" + searchQuery;
-    const response = await $.get(newUrl);
-    const results = response.results;
-
-    $("#movieTable > tbody").empty();
-
-    var bodyStr = "";
-
-    for (var i = 0; i < results.length; i++) {
-        bodyStr +=
-            "<tr>" +
-            "<td> <a href='#' onClick='PressMovieName(" +
-            results[i]["id"] +
-            ")'>" +
-            results[i]["title"] +
-            "</a> " +
-            "</td>" +
-            "</tr>";
-    }
-
-    $("#movieTable > tbody").append(bodyStr);
-
-    $("#resultMovieSection").css("display", "block");
-    $("#resultPersonSection").css("display", "none");
 }
 
 async function UpdateMovie(movieId) {

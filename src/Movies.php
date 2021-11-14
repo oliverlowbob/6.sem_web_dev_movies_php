@@ -10,6 +10,32 @@
             return $statusInfo;
         }
 
+        public function addMovie($title, $overview, $released, $runtime){
+            $con = (new DatabaseConnector())->getConnection();
+
+            if ($con) {
+                $sql = "INSERT INTO films.movies (title, overview, released, runtime) VALUES (?, ?, ?, ?)";
+                $stmt= $con->prepare($sql);
+                $stmt->execute([$title, $overview, $released, $runtime]);
+                $stmt = null;
+            }else {
+                return $this->statusCode(ERROR);
+            } 
+        }
+
+        public function deleteMovie($movieId){
+            $con = (new DatabaseConnector())->getConnection();
+
+            if ($con) {
+                $sql = "DELETE FROM films.movies WHERE id=?";
+                $stmt= $con->prepare($sql);
+                $stmt->execute([$movieId]);
+                $stmt = null;
+            }else {
+                return $this->statusCode(ERROR);
+            } 
+        }
+
         public function updateMovie($id, $title, $overview, $released, $runtime){
             $con = (new DatabaseConnector())->getConnection();
 

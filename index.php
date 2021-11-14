@@ -21,12 +21,12 @@
 
     switch($requestMethod){
         case "GET":
-            // Get movie by id (<current_dir>/movies/{id})
-            if(count($urlPieces) == 2){                      
+            if(count($urlPieces) == 2){         
+                // Get movie by id (<current_dir>/movies/{id})
                 echo json_encode($movies->getMovie($urlPieces[1]));
             }
-            // Search movie by name
-            elseif (isset($_GET['name'])) {                   
+            elseif (isset($_GET['name'])) {       
+                // Search movie by name
                 echo json_encode($movies->searchMovies($_GET['name']));
             } 
             else {                    
@@ -38,4 +38,11 @@
             $movieData = (array) json_decode(file_get_contents('php://input'), TRUE);
             echo json_encode($movies->updateMovie($movieData['movieId'], $movieData['title'], $movieData['overview'], $movieData['released'], $movieData['runtime']));
             break;
+        case "POST":
+            echo json_encode($movies->addMovie($_POST['title'], $_POST['overview'], $_POST['released'], $_POST['runtime']));
+            break;
+        case "DELETE":
+            if(count($urlPieces) == 2){       
+                echo json_encode($movies->deleteMovie($urlPieces[1]));
+            }
         }
