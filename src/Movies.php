@@ -1,8 +1,6 @@
 <?php
     require_once("DatabaseConnector.php");
 
-    define('ERROR', 'error');
-
     Class Movies extends DatabaseConnector{
 
         function statusCode($status) {

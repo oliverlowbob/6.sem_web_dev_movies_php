@@ -55,7 +55,7 @@ body {
     display: none;
 }
 
-main{
+main,#loginSection{
     margin: 1rem;
     text-align: center;
 }

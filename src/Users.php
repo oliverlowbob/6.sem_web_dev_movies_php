@@ -23,5 +23,42 @@
             } 
         }
 
+        public function login($username, $password){
+            $con = (new DatabaseConnector())->getConnection();
+
+            if ($con) {
+                $results = array();
+
+                $cQuery = "SELECT * FROM films.user WHERE username = " . $username . ";";
+
+                $stmt = $con->query($cQuery);      
+
+                $users = array();
+                while($row = $stmt->fetch()) {
+                    $result['username'] = $row['username'];
+                    $result['password'] = $row['password'];
+                    $users[] = $result;
+                }
+                
+                $stmt = null;
+                
+                if(empty($users)){
+                    return false;
+                }
+                else{
+                    $user = $users[0];
+                    if($user['password'] == $password){
+                        return true;
+                    }
+                    else{
+                        return false;
+                    }
+                }
+
+            } else {
+                return $this->statusCode(ERROR);
+            } 
+        }
+
         
     }

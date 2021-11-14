@@ -41,8 +41,20 @@
             echo json_encode($movies->updateMovie($movieData['movieId'], $movieData['title'], $movieData['overview'], $movieData['released'], $movieData['runtime']));
             break;
         case "POST":
-            $movies->addMovie($_POST['title'], $_POST['overview'], $_POST['released'], $_POST['runtime']);
-            header("Location: index.html");
+            if(isset($_POST['title']) && isset($_POST['overview']) && isset($_POST['released']) && isset($_POST['runtime'])){
+                $movies->addMovie($_POST['title'], $_POST['overview'], $_POST['released'], $_POST['runtime']);
+                header("Location: frontpage.php");
+            }
+            elseif($urlPieces[1] == "login"){
+                if(isset($_POST['username']) && isset($_POST['password'])){
+                    $response = json_encode($users->login($_POST['username'], $_POST['password']));
+                    if($response == "true"){
+                        session_start();
+                        $_SESSION["username"] = $_POST['username'];
+                        header("Location: frontpage.php");
+                    }
+                }
+            }
             break;
         case "DELETE":
             if(count($urlPieces) == 2){       
