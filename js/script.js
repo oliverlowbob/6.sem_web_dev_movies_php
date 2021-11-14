@@ -2,6 +2,7 @@ window.onload = async function () {
     const newUrl = "http://localhost/movies/";
     const response = await $.get(newUrl);
     const results = response.results;
+    console.log(results);
 
     await showMoviesTable(results);
 };

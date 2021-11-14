@@ -1,7 +1,9 @@
 <?php 
     require_once("src/Movies.php");
+    require_once("src/Users.php");
 
     $movies = new Movies();
+    $users = new users();
 
     $url = strtok($_SERVER['REQUEST_URI'], "?");    // GET parameters are removed
     // If there is a trailing slash, it is removed, so that it is not taken into account by the explode function

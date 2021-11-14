@@ -14,7 +14,7 @@
             $con = (new DatabaseConnector())->getConnection();
 
             if ($con) {
-                $sql = "INSERT INTO films.movies (title, overview, released, runtime) VALUES (?, ?, ?, ?)";
+                $sql = "INSERT INTO films.movie (title, overview, release_date, runtime) VALUES (?, ?, ?, ?)";
                 $stmt= $con->prepare($sql);
                 $stmt->execute([$title, $overview, $released, $runtime]);
                 $stmt = null;
@@ -27,7 +27,7 @@
             $con = (new DatabaseConnector())->getConnection();
 
             if ($con) {
-                $sql = "DELETE FROM films.movies WHERE id=?";
+                $sql = "DELETE FROM films.movie WHERE movie_id=?";
                 $stmt= $con->prepare($sql);
                 $stmt->execute([$movieId]);
                 $stmt = null;
@@ -40,7 +40,7 @@
             $con = (new DatabaseConnector())->getConnection();
 
             if ($con) {
-                $sql = "UPDATE films.movies SET title=?, overview=?, released=?, runtime=? WHERE id=?";
+                $sql = "UPDATE films.movie SET title=?, overview=?, release_date=?, runtime=? WHERE movie_id=?";
                 $stmt= $con->prepare($sql);
                 $stmt->execute([$title, $overview, $released, $runtime, $id]);
                 $stmt = null;
@@ -55,7 +55,7 @@
             if ($con) {
                 $results = array();
 
-                $cQuery = "SELECT * FROM films.movies WHERE id = " . $movieId . ";";
+                $cQuery = "SELECT * FROM films.movie WHERE movie_id = " . $movieId . ";";
 
                 $stmt = $con->query($cQuery);      
 
@@ -63,10 +63,10 @@
                 
                 $movies = array();
                 while($row = $stmt->fetch()) {
-                    $result['id'] = $row['id'];
+                    $result['id'] = $row['movie_id'];
                     $result['title'] = $row['title'];
                     $result['overview'] = $row['overview'];
-                    $result['released'] = $row['released'];
+                    $result['released'] = $row['release_date'];
                     $result['runtime'] = $row['runtime'];
                     $movies[] = $result;
                 }
@@ -88,7 +88,7 @@
             if ($con) {
                 $results = array();
 
-                $cQuery = "SELECT * FROM films.movies";
+                $cQuery = "SELECT * FROM films.movie";
 
                 $stmt = $con->query($cQuery);      
 
@@ -96,10 +96,10 @@
                 
                 $movies = array();
                 while($row = $stmt->fetch()) {
-                    $result['id'] = $row['id'];
+                    $result['id'] = $row['movie_id'];
                     $result['title'] = $row['title'];
                     $result['overview'] = $row['overview'];
-                    $result['released'] = $row['released'];
+                    $result['released'] = $row['release_date'];
                     $result['runtime'] = $row['runtime'];
                     $movies[] = $result;
                 }
@@ -121,7 +121,7 @@
             if ($con) {
                 $results = array();
 
-                $cQuery = 'SELECT * FROM films.movies WHERE title LIKE "%' . $searchText . '%"';
+                $cQuery = 'SELECT * FROM films.movie WHERE title LIKE "%' . $searchText . '%"';
 
                 $stmt = $con->query($cQuery);      
 
@@ -129,10 +129,10 @@
                 
                 $movies = array();
                 while($row = $stmt->fetch()) {
-                    $result['id'] = $row['id'];
+                    $result['id'] = $row['movie_id'];
                     $result['title'] = $row['title'];
                     $result['overview'] = $row['overview'];
-                    $result['released'] = $row['released'];
+                    $result['released'] = $row['release_date'];
                     $result['runtime'] = $row['runtime'];
                     $movies[] = $result;
                 }
