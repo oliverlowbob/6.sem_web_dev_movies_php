@@ -6,6 +6,14 @@ window.onload = async function () {
     await showMoviesTable(results);
 };
 
+async function addMovieBtnClick(){
+    
+
+    $("#resultMovieSection").css("display", "none");
+    $("#searchSection").css("display", "none");
+    $("#addMovieSection").css("display", "block");
+}
+
 async function searchBtnClick() {
     const searchQuery = $("#searchQuery").val();
 
@@ -147,6 +155,7 @@ async function PressMovieName(movieId) {
 function ShowFrontPageMovie() {
     $("#movieActors > table > tbody").empty();
     $("#movieInfoSection").css("display", "none");
+    $("#addMovieSection").css("display", "none");
     $("#resultMovieSection").css("display", "block");
     $("#searchSection").css("display", "block");
 }

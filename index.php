@@ -39,10 +39,12 @@
             echo json_encode($movies->updateMovie($movieData['movieId'], $movieData['title'], $movieData['overview'], $movieData['released'], $movieData['runtime']));
             break;
         case "POST":
-            echo json_encode($movies->addMovie($_POST['title'], $_POST['overview'], $_POST['released'], $_POST['runtime']));
+            $movies->addMovie($_POST['title'], $_POST['overview'], $_POST['released'], $_POST['runtime']);
+            header("Location: index.html");
             break;
         case "DELETE":
             if(count($urlPieces) == 2){       
                 echo json_encode($movies->deleteMovie($urlPieces[1]));
             }
+            break;
         }

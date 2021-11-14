@@ -41,7 +41,7 @@ body {
     font-size: 1rem;
 }
 
-#searchBtn{
+.frontpageBtn{
     background-color: #05386B;
     color: var(--main-text-color);
     border-radius: 0.5rem;
